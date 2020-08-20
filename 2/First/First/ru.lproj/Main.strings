@@ -1,0 +1,18 @@
+
+/* Class = "UIViewController"; title = "Main"; ObjectID = "BYZ-38-t0r"; */
+"BYZ-38-t0r.title" = "Основные";
+
+/* Class = "UIButton"; normalTitle = "Send text"; ObjectID = "GBs-Jf-Xot"; */
+"GBs-Jf-Xot.normalTitle" = "Отправить текст;
+
+/* Class = "UIButton"; normalTitle = "Open image"; ObjectID = "fpx-1R-eR0"; */
+"fpx-1R-eR0.normalTitle" = "Открыть картинку";
+
+/* Class = "UIButton"; normalTitle = "Send url"; ObjectID = "rNY-Wn-v3i"; */
+"rNY-Wn-v3i.normalTitle" = "Отправить URL";
+
+/* Class = "UIViewController"; title = "Language"; ObjectID = "rPv-nj-vcH"; */
+"rPv-nj-vcH.title" = "Язык";
+
+/* Class = "UIButton"; normalTitle = "Change language"; ObjectID = "uDr-i9-mhf"; */
+"uDr-i9-mhf.normalTitle" = "Сменить язык";

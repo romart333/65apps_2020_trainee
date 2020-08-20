@@ -1,0 +1,18 @@
+/* 
+  Localizable.strings
+  First
+
+  Created by Роман Капылов on 17/08/2020.
+  Copyright © 2020 Роман Капылов. All rights reserved.
+*/
+
+"Send text" = "Send text";
+"Send URL" = "Send url";
+"Open image" = "Open image";
+"Change language" = "Change language";
+"Main" = "Main";
+"Language" = "Language";
+"Russian" = "Russian";
+"English" = "English";
+"Back" = "Back";
+
