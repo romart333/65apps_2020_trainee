@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         // Комментирвоать одну из этих строк!!
-//        let (vc, labelText) = initMainVCFromXib()
+        //let (vc, labelText) = initMainVCFromXib()
         let (vc, labelText)  = initMainVCFromCode()
         //
         if let view = vc.view {

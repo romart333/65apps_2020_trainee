@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="HSC-rP-Tpc">
     <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -113,7 +114,6 @@
         <!--Navigation Controller-->
         <scene sceneID="18G-v6-1rj">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6X5-Bc-bhC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController id="LLx-us-NdG" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="kn6-MY-bVn">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
@@ -123,6 +123,7 @@
                         <segue destination="dMG-yG-ZqF" kind="relationship" relationship="rootViewController" id="MtS-xe-G8Y"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6X5-Bc-bhC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-698" y="-335"/>
         </scene>
@@ -170,11 +171,19 @@
                                     <constraint firstItem="v6R-r2-UE5" firstAttribute="width" secondItem="UEo-EZ-y36" secondAttribute="width" multiplier="0.538922" id="1QF-Yw-HdB"/>
                                 </constraints>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Init from storyboard" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cuA-Eh-Pwf">
+                                <rect key="frame" x="308.5" y="502" width="151" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="aPK-GV-B3z" firstAttribute="centerY" secondItem="E1Z-Fl-ivp" secondAttribute="centerY" id="Gel-io-wTx"/>
                             <constraint firstItem="aPK-GV-B3z" firstAttribute="centerX" secondItem="E1Z-Fl-ivp" secondAttribute="centerX" id="Mbd-HF-lhN"/>
+                            <constraint firstItem="cuA-Eh-Pwf" firstAttribute="centerY" secondItem="E1Z-Fl-ivp" secondAttribute="centerY" id="Mts-0w-AQA"/>
+                            <constraint firstItem="cuA-Eh-Pwf" firstAttribute="centerX" secondItem="E1Z-Fl-ivp" secondAttribute="centerX" id="VHs-Zc-pMk"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="W3c-Rc-IW9"/>
                     </view>

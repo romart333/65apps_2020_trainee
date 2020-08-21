@@ -20,20 +20,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("ios 13")
         } else {
             let window = UIWindow(frame: UIScreen.main.bounds)
-            let mainViewController = MainViewController()
+            // Комментирвоать одну из этих строк!!
+//            let (vc, labelText) = initMainVCFromXib()
+            let (vc, labelText)  = initMainVCFromCode()
             
-            if let view = mainViewController.view {
-                let label = UILabel(frame: CGRect(x: view.frame.midX - 300, y: view.frame.midY, width: 200, height: 10))
-                label.text = "Init form code for ios lower than 13"
+            let width: CGFloat = 250
+            let heigth: CGFloat = 25
+            if let view = vc.view {
+                let label = UILabel(frame: CGRect(x: view.frame.midX - width / 2, y: view.frame.midY, width: width, height: heigth))
+                label.text = labelText
                 view.addSubview(label)
             }
             
-            window.rootViewController = mainViewController
+            window.rootViewController = vc
             window.makeKeyAndVisible()
             self.window = window
             
         }
         return true
+    }
+    
+    func initMainVCFromXib() -> (mainVC: MainViewController, labelText: String) {
+        return (MainViewController(), "Init from xib for ios < 13")
+    }
+    
+    func initMainVCFromCode() -> (mainVC: MainViewController, labelText: String) {
+        return (MainViewController(nibName: "MainView", bundle: nil), "Init from code for ios < 13")
     }
 
     // MARK: UISceneSession Lifecycle
