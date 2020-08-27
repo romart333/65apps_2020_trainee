@@ -12,25 +12,23 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var textLabel: UILabel!
     
-    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var textView: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        textField.delegate = self
+        textLabel.text = textView.text
+        textView.delegate = self
     }
 }
 
-extension ViewController: UITextFieldDelegate {
+extension ViewController: UITextViewDelegate {
 
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        if textField == self.textField {
-            textLabel.text = self.textField.text
-        }
-
-        print("return")
-        return true
+    func textViewDidEndEditing(_ textView: UITextView) {
+        textView.resignFirstResponder()
     }
-
+    
+    func textViewDidChange(_ textView: UITextView) {
+        textLabel.text = textView.text
+    }
 }
 
