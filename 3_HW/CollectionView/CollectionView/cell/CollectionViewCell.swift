@@ -9,8 +9,10 @@
 import UIKit
 
 class CollectionViewCell: UICollectionViewCell {
+    
+    static let cellIdentifier = "CollectionViewCell"
 
-    @IBOutlet private weak var image: UIImageView!
+    @IBOutlet private weak var imageView: UIImageView!
     
     @IBOutlet private weak var firstLabel: UILabel!
     
@@ -22,8 +24,15 @@ class CollectionViewCell: UICollectionViewCell {
     }
     
     func configureCellWith(model: Model) {
-        self.image.image = model.image
+        self.imageView.image = model.image
         firstLabel.text = model.firstText
         secondLabel.text = model.secondText
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        firstLabel.text = nil
+        secondLabel.text = nil
+        imageView.image = nil
+   }
 }

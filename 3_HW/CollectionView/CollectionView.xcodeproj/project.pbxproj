@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1442367524FCD5810094D0E1 /* CustomUICollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1442367424FCD5810094D0E1 /* CustomUICollectionViewLayout.swift */; };
 		14D77D0924F8D9BD000E6CD7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D77D0824F8D9BD000E6CD7 /* AppDelegate.swift */; };
 		14D77D0B24F8D9BD000E6CD7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D77D0A24F8D9BD000E6CD7 /* SceneDelegate.swift */; };
 		14D77D0D24F8D9BD000E6CD7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D77D0C24F8D9BD000E6CD7 /* ViewController.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1442367424FCD5810094D0E1 /* CustomUICollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUICollectionViewLayout.swift; sourceTree = "<group>"; };
 		14D77D0524F8D9BD000E6CD7 /* CollectionView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CollectionView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14D77D0824F8D9BD000E6CD7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		14D77D0A24F8D9BD000E6CD7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 				14D77D1324F8D9BE000E6CD7 /* LaunchScreen.storyboard */,
 				14D77D1624F8D9BE000E6CD7 /* Info.plist */,
 				14D77D2124F8EC4D000E6CD7 /* Model.swift */,
+				1442367424FCD5810094D0E1 /* CustomUICollectionViewLayout.swift */,
 			);
 			path = CollectionView;
 			sourceTree = "<group>";
@@ -157,6 +160,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				14D77D2224F8EC4D000E6CD7 /* Model.swift in Sources */,
+				1442367524FCD5810094D0E1 /* CustomUICollectionViewLayout.swift in Sources */,
 				14D77D0D24F8D9BD000E6CD7 /* ViewController.swift in Sources */,
 				14D77D0924F8D9BD000E6CD7 /* AppDelegate.swift in Sources */,
 				14D77D1F24F8E93F000E6CD7 /* CollectionViewCell.swift in Sources */,
