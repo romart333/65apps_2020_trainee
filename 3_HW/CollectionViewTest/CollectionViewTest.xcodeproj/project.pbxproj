@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		1442A8092510A469008A4761 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1442A8082510A469008A4761 /* AppDelegate.swift */; };
 		1442A80B2510A469008A4761 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1442A80A2510A469008A4761 /* SceneDelegate.swift */; };
-		1442A80D2510A469008A4761 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1442A80C2510A469008A4761 /* ViewController.swift */; };
+		1442A80D2510A469008A4761 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1442A80C2510A469008A4761 /* CollectionViewController.swift */; };
 		1442A8102510A469008A4761 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1442A80E2510A469008A4761 /* Main.storyboard */; };
 		1442A8122510A46B008A4761 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1442A8112510A46B008A4761 /* Assets.xcassets */; };
 		1442A8152510A46B008A4761 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1442A8132510A46B008A4761 /* LaunchScreen.storyboard */; };
@@ -17,7 +17,7 @@
 		1442A81F2510B631008A4761 /* CustomCVLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1442A81E2510B631008A4761 /* CustomCVLayout.swift */; };
 		1442A8232510B839008A4761 /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1442A8212510B839008A4761 /* CustomCollectionViewCell.swift */; };
 		1442A8242510B839008A4761 /* CustomCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1442A8222510B839008A4761 /* CustomCollectionViewCell.xib */; };
-		1442A8262510BC82008A4761 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1442A8252510BC82008A4761 /* CollectionViewController.swift */; };
+		1442A8262510BC82008A4761 /* SeparateCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1442A8252510BC82008A4761 /* SeparateCollectionViewController.swift */; };
 		1442A8282510E804008A4761 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1442A8272510E804008A4761 /* SectionHeader.swift */; };
 		145C5FF7251216E200BE4360 /* ItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145C5FF6251216E200BE4360 /* ItemModel.swift */; };
 		9749CCE325152A15000877EB /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9749CCE225152A15000877EB /* TableViewController.swift */; };
@@ -29,7 +29,7 @@
 		1442A8052510A469008A4761 /* CollectionViewTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CollectionViewTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1442A8082510A469008A4761 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1442A80A2510A469008A4761 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1442A80C2510A469008A4761 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1442A80C2510A469008A4761 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		1442A80F2510A469008A4761 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1442A8112510A46B008A4761 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1442A8142510A46B008A4761 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -38,7 +38,7 @@
 		1442A81E2510B631008A4761 /* CustomCVLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCVLayout.swift; sourceTree = "<group>"; };
 		1442A8212510B839008A4761 /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		1442A8222510B839008A4761 /* CustomCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCollectionViewCell.xib; sourceTree = "<group>"; };
-		1442A8252510BC82008A4761 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		1442A8252510BC82008A4761 /* SeparateCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparateCollectionViewController.swift; sourceTree = "<group>"; };
 		1442A8272510E804008A4761 /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		145C5FF6251216E200BE4360 /* ItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemModel.swift; sourceTree = "<group>"; };
 		9749CCE225152A15000877EB /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
@@ -76,6 +76,7 @@
 		1442A8072510A469008A4761 /* CollectionViewTest */ = {
 			isa = PBXGroup;
 			children = (
+				144BEAB42521D6E10016DFC8 /* Для тестов */,
 				145C5FF5251216D200BE4360 /* Model */,
 				1442A8162510A46B008A4761 /* Info.plist */,
 				1442A81E2510B631008A4761 /* CustomCVLayout.swift */,
@@ -89,9 +90,9 @@
 		1442A8202510B804008A4761 /* cells */ = {
 			isa = PBXGroup;
 			children = (
-				1442A81C2510A7D3008A4761 /* CVCell.swift */,
 				1442A8212510B839008A4761 /* CustomCollectionViewCell.swift */,
 				1442A8222510B839008A4761 /* CustomCollectionViewCell.xib */,
+				1442A81C2510A7D3008A4761 /* CVCell.swift */,
 				9749CCE625162713000877EB /* TableViewCell.swift */,
 			);
 			path = cells;
@@ -121,11 +122,18 @@
 		1442A82B25120A64008A4761 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1442A80C2510A469008A4761 /* ViewController.swift */,
-				1442A8252510BC82008A4761 /* CollectionViewController.swift */,
+				1442A80C2510A469008A4761 /* CollectionViewController.swift */,
 				9749CCE225152A15000877EB /* TableViewController.swift */,
 			);
 			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		144BEAB42521D6E10016DFC8 /* Для тестов */ = {
+			isa = PBXGroup;
+			children = (
+				1442A8252510BC82008A4761 /* SeparateCollectionViewController.swift */,
+			);
+			path = "Для тестов";
 			sourceTree = "<group>";
 		};
 		145C5FF5251216D200BE4360 /* Model */ = {
@@ -214,10 +222,10 @@
 				1442A8232510B839008A4761 /* CustomCollectionViewCell.swift in Sources */,
 				9749CCE525161283000877EB /* ItemStorage.swift in Sources */,
 				9749CCE325152A15000877EB /* TableViewController.swift in Sources */,
-				1442A80D2510A469008A4761 /* ViewController.swift in Sources */,
+				1442A80D2510A469008A4761 /* CollectionViewController.swift in Sources */,
 				1442A8092510A469008A4761 /* AppDelegate.swift in Sources */,
 				1442A8282510E804008A4761 /* SectionHeader.swift in Sources */,
-				1442A8262510BC82008A4761 /* CollectionViewController.swift in Sources */,
+				1442A8262510BC82008A4761 /* SeparateCollectionViewController.swift in Sources */,
 				9749CCE725162713000877EB /* TableViewCell.swift in Sources */,
 				1442A80B2510A469008A4761 /* SceneDelegate.swift in Sources */,
 				1442A81F2510B631008A4761 /* CustomCVLayout.swift in Sources */,

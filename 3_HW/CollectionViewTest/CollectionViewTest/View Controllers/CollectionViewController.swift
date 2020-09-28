@@ -1,86 +1,105 @@
 //
-//  CollectionViewController.swift
+//  ViewController.swift
 //  CollectionViewTest
 //
 //  Created by Роман Копылов on 15.09.2020.
 //  Copyright © 2020 Роман Копылов. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
+class CollectionViewController: UICollectionViewController {
+    
+    private var items: [ItemModel] = {
+        var mainText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc a sagittis metus, vitae tempor odio. Donec dolor urna, maximus nec tincidunt eu, tempus et sapien. Praesent et hendrerit dui, nec gravida eros. Nam consectetur ex vel feugiat cursus. Aenean sed nunc eu augue consequat fringilla. Ut gravida neque vitae turpis congue rutrum. Aliquam facilisis tristique erat, id varius magna dapibus eget. Maecenas blandit pellentesque nunc, id mollis massa auctor in. Fusce vestibulum metus sit amet sollicitudin luctus. Donec imperdiet accumsan felis non scelerisque. Donec eleifend nisi non enim ultrices, non lacinia erat sagittis. Praesent sit amet ligula sapien. Donec eget ullamcorper dui. Fusce viverra urna nec volutpat rutrum. FINISH!!"
+        var items = [ItemModel]()
+        var image = UIImage(named: String("1")) ?? UIImage()
+        //        items.append(ItemModel(title: "little text", text: "little text", image: image))
+        image = UIImage(named: String("1")) ?? UIImage()
+//        items.append(ItemModel(title: "little text", text: "little text", image: image))
+        for i in 1...3 {
+            let image = UIImage(named: String(i)) ?? UIImage()
+            items.append(ItemModel(title: "Title\(i+1)", text: mainText, image: image))
+            mainText += "\n\(mainText)"
+        }
+        
+        return items
+    }()
+    
+    private var items2: [ItemModel] = {
+        var mainText = "section2"
+        var items = [ItemModel]()
+        for i in 1...3 {
+            let image = UIImage(named: String(i)) ?? UIImage()
+            items.append(ItemModel(title: "Title\(i)", text: mainText, image: image))
+            
+            mainText += "\n\(mainText)"
+        }
+        
+        return items
+    }()
+    
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        ItemStorage.shared.setItemsFor(section: 0, withItems: items)
+        ItemStorage.shared.setItemsFor(section: 1, withItems: items2)
+        // Do any additional setup after loading the view.
+        collectionView.register(UINib(nibName: String(describing: CustomCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: CustomCollectionViewCell.cellIdentifier)
+        
+        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeader.identifier)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        if let flow = collectionViewLayout as? UICollectionViewFlowLayout,
+            let cv = collectionView {
+            let w = cv.frame.width - 20
+            flow.estimatedItemSize = CGSize(width: w, height: 1000)
+        }
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        let supplementaryView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeader.identifier, for: indexPath)
+        supplementaryView.backgroundColor = .gray
+        return supplementaryView
+    }
+    
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return ItemStorage.shared.sectionsCount
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return ItemStorage.shared.getItemsBy(section: section)?.count ?? 0
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionViewCell.cellIdentifier, for: indexPath) as? CustomCollectionViewCell,
+//            let item = ItemStorage.shared.getItemsBy(section: indexPath.section)?[indexPath.item] else { return UICollectionViewCell() }
+//        cell.configureCellWith(item: item)
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CVCell.cellIdentifier, for: indexPath) as? CVCell,
+            let item = ItemStorage.shared.getItemsBy(section: indexPath.section)?[indexPath.item] else { return UICollectionViewCell() }
+        cell.configureCellWith(item: item)
+        return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+        
+        ItemStorage.shared.removeItemAt(section: indexPath.section, withItemIndex: indexPath.item)
+        collectionView.deleteItems(at: [indexPath])
+        print(indexPath)
+    }
+}
 
-//class CollectionViewController: UIViewController {
-//   
-//    @IBOutlet weak var collectionView: UICollectionView!
-//    let items: [String] = {
-//        
-//         let loremIpsum = "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. FINISH!!!"
-//        
-//        var array = [String]()
-//        for i in 1..<10 {
-//            array.append(loremIpsum)
-//        }
-//        return array
-//    }()
-//    
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        // Do any additional setup after loading the view.
-//        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeader.identifier)
-////        collectionView.register(UINib(nibName: String(describing: CustomCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: CustomCollectionViewCell.cellIdentifier)
-//        if let flow = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-//                   let w = collectionView.frame.width - 20
-//                   flow.estimatedItemSize = CGSize(width: w, height: 20)
-//               }
-//    }
-//    
-//    override func viewWillLayoutSubviews() {
-//        if !self.view.needsUpdateConstraints() {
-//            return
-//        }
-//        
-//        if let flow = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-//            let w = collectionView.frame.width - 20
-//            flow.estimatedItemSize = CGSize(width: w, height: 20)
-//        }
-//    }
-//}
-//
-//extension CollectionViewController: UICollectionViewDelegate {
-//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-//           let supplementaryView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeader.identifier, for: indexPath)
-//           print("supplementaryView frame:\(supplementaryView.frame)")
-//           supplementaryView.backgroundColor = .gray
-//           return supplementaryView
-//       }
-//}
-//
-//extension CollectionViewController: UICollectionViewDataSource {
-//    
-//    func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        return 1
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return items.count
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CVCell.cellIdentifier, for: indexPath) as? CVCell else { return UICollectionViewCell() }
-//        cell.label3.text = items[indexPath.item]
-//        return cell
-//    }
-//}
-//
-//extension CollectionViewController: UICollectionViewDelegateFlowLayout {
-// 
-//    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-//        return CGSize(width: 0, height: 20)
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        return 0
-//    }
-//}
+extension CollectionViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: 0, height: 20)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+}
