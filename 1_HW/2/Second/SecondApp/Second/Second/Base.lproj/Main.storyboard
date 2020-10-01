@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController storyboardIdentifier="VC" id="BYZ-38-t0r" customClass="ViewController" customModule="Second" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="75S-FV-cuT">
+                                <rect key="frame" x="190.5" y="437.5" width="33" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MyImage" translatesAutoresizingMaskIntoConstraints="NO" id="wKb-Mn-BMg">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            </imageView>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rNZ-Kd-uxu">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="75S-FV-cuT" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="4VZ-Yc-QiN"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="wKb-Mn-BMg" secondAttribute="bottom" id="84r-QJ-xnC"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="rNZ-Kd-uxu" secondAttribute="bottom" id="Lvo-90-2hp"/>
+                            <constraint firstItem="rNZ-Kd-uxu" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="QFE-Ja-NbC"/>
+                            <constraint firstItem="wKb-Mn-BMg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Rdy-pR-vH2"/>
+                            <constraint firstItem="wKb-Mn-BMg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="duS-Lb-cq9"/>
+                            <constraint firstItem="rNZ-Kd-uxu" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="f3y-ZS-i9T"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rNZ-Kd-uxu" secondAttribute="trailing" id="jJN-Jp-gut"/>
+                            <constraint firstItem="75S-FV-cuT" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="lHG-RF-Nm8"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wKb-Mn-BMg" secondAttribute="trailing" id="uGN-PF-pPR"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="wKb-Mn-BMg" id="Bpl-IR-hzY"/>
+                        <outlet property="textLabel" destination="75S-FV-cuT" id="x2t-14-bqH"/>
+                        <outlet property="wkWebView" destination="rNZ-Kd-uxu" id="ygN-M0-bPu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="139" y="116"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="MyImage" width="2000" height="1457"/>
+    </resources>
+</document>

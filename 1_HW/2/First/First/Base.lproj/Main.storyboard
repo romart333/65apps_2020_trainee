@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zQd-4a-Eyn">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Main-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController title="Main" id="BYZ-38-t0r" customClass="MainViewController" customModule="First" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="36" translatesAutoresizingMaskIntoConstraints="NO" id="vL3-jC-wZr">
+                                <rect key="frame" x="147" y="334" width="120" height="228"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GBs-Jf-Xot" userLabel="SendTextBtn">
+                                        <rect key="frame" x="27" y="0.0" width="66" height="30"/>
+                                        <state key="normal" title="Send text"/>
+                                        <connections>
+                                            <action selector="didTapSendText:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MlB-Rz-3ej"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rNY-Wn-v3i" userLabel="SendUrlBtn">
+                                        <rect key="frame" x="31.5" y="66" width="57" height="30"/>
+                                        <state key="normal" title="Send url"/>
+                                        <connections>
+                                            <action selector="didTapSendUrl:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZUr-x7-CLk"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fpx-1R-eR0" userLabel="OpenImageBtn">
+                                        <rect key="frame" x="18.5" y="132" width="83" height="30"/>
+                                        <state key="normal" title="Open image"/>
+                                        <connections>
+                                            <action selector="didTapOpenImage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oA3-TX-eif"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uDr-i9-mhf">
+                                        <rect key="frame" x="0.0" y="198" width="120" height="30"/>
+                                        <state key="normal" title="Change language"/>
+                                        <connections>
+                                            <segue destination="rPv-nj-vcH" kind="show" id="Eec-Ug-epa"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="vL3-jC-wZr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="la5-kO-INS"/>
+                            <constraint firstItem="vL3-jC-wZr" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="pjI-m4-vfG"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Rsn-b2-ow6"/>
+                    <connections>
+                        <outlet property="changeLanguageButton" destination="uDr-i9-mhf" id="e4j-Xa-9HA"/>
+                        <outlet property="openImageButton" destination="fpx-1R-eR0" id="UQL-oa-Zq5"/>
+                        <outlet property="sendTextButton" destination="GBs-Jf-Xot" id="70b-pi-qWo"/>
+                        <outlet property="sendURLButton" destination="rNY-Wn-v3i" id="Oiu-aw-gfK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1326.0869565217392" y="108.48214285714285"/>
+        </scene>
+        <!--Language-->
+        <scene sceneID="2Kh-Ha-xxb">
+            <objects>
+                <viewController title="Language" id="rPv-nj-vcH" customClass="LanguageTableViewContoller" customModule="First" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="F8O-zM-1nx">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xOq-XH-aLY">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="language cell" id="5pY-Vk-x5t">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5pY-Vk-x5t" id="3br-bO-DLT">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="rPv-nj-vcH" id="ZxO-yN-yLh"/>
+                                    <outlet property="delegate" destination="rPv-nj-vcH" id="jq2-IO-KAN"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="g1T-jh-ApV" firstAttribute="trailing" secondItem="xOq-XH-aLY" secondAttribute="trailing" id="C5H-Wj-miM"/>
+                            <constraint firstItem="g1T-jh-ApV" firstAttribute="bottom" secondItem="xOq-XH-aLY" secondAttribute="bottom" id="CWy-xM-7zH"/>
+                            <constraint firstItem="xOq-XH-aLY" firstAttribute="top" secondItem="g1T-jh-ApV" secondAttribute="top" id="JCK-Aa-Jgt"/>
+                            <constraint firstItem="xOq-XH-aLY" firstAttribute="leading" secondItem="g1T-jh-ApV" secondAttribute="leading" id="pFe-sz-cir"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="g1T-jh-ApV"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="YPU-3S-jFP"/>
+                    <connections>
+                        <outlet property="languageTableView" destination="xOq-XH-aLY" id="rl4-f4-ru6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6R4-gR-F4O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2101" y="104"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="naK-dB-2G7">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zQd-4a-Eyn" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="laY-Ru-idV">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="VCz-n9-jxz"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JtZ-U0-dkT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="415.94202898550731" y="108.48214285714285"/>
+        </scene>
+    </scenes>
+</document>
