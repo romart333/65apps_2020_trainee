@@ -27,6 +27,7 @@ class ContentViewController: UIViewController, SlideBarControllerDelegate {
     private var items = [QuestionItem]()
     private var tag = String()
     private let pageSize = 50
+    private let cacheLifeTimeInHours = 1
     
     private var urlRequest: URLRequest? {
         let urlString = "https://api.stackexchange.com/2.2/questions?order=desc&sort=activity&tagged=\(tag)&site=stackoverflow&pagesize=\(pageSize)"
@@ -72,26 +73,62 @@ class ContentViewController: UIViewController, SlideBarControllerDelegate {
         activityIndicator.startAnimating()
         self.tag = tag
         self.title = tag
-        guard let urlRequest = urlRequest else {
+        
+        guard let urlRequest = urlRequest, let networkUrl = urlRequest.url?.absoluteString else {
             activityIndicator.stopAnimating()
             return
+        }
+        
+        //после чтения UserDefaults проверить, стоит ли идти в сеть. Если нет - читаем с файла, иначе перезаписываем после сети
+        if let dateForUrl = UserDefaults.standard.value(forKey: networkUrl) as? Date {
+            let diffComponents = Calendar.current.dateComponents([.hour], from: dateForUrl, to: Date())
+            if let hours = diffComponents.hour  {
+                if hours < cacheLifeTimeInHours {
+                    let fileUrl = FileHelper.getDocumentsDirectory().appendingPathComponent(networkUrl)
+                    //                        let data = try Data(contentsOf: fileUrl)
+                    //                        UserDefaults.standard.setValue(Date(), forKey: url)
+                    //                        items = resultItems.items
+                    //                        tableView.reloadData()
+                    //                        activityIndicator.stopAnimating()
+                    if let data = try? Data(contentsOf: fileUrl) {
+                        let decodedItems: Items? = JSONDecoderExtension().decode(data: data)
+                        if let resultItems = decodedItems {
+                            items = resultItems.items
+                            tableView.reloadData()
+                            activityIndicator.stopAnimating()
+                            return
+                        }
+                    }
+                }
+                
+            }
         }
         
         APIService.shared.getData(request: urlRequest) { [weak self] result in
             switch result {
             case .success(let data):
-                let deconder = JSONDecoder()
-                deconder.keyDecodingStrategy = .convertFromSnakeCase
-
-                let decodedItems = try? deconder.decode(Items.self, from: data)
-                DispatchQueue.main.async {
-                    self?.activityIndicator.stopAnimating()
+                let decodedItems: Items? = JSONDecoderExtension().decode(data: data)
+                
+                guard let resultItems = decodedItems, let url = urlRequest.url?.absoluteString else { return }
+                let fileUrl = FileHelper.getDocumentsDirectory().appendingPathComponent(url)
+                if !FileManager.default.fileExists(atPath: url) {
+                    FileManager.default.createFile(atPath: url, contents: data, attributes: nil)
+                    UserDefaults.standard.setValue(Date(), forKey: url)
+                } else {
+                    do {
+                        try data.write(to: fileUrl, options: .atomic)
+                        UserDefaults.standard.setValue(Date(), forKey: url)
+                    } catch {
+                        print(error.localizedDescription)
+                    }
                 }
-                guard let resultItems = decodedItems else { return }
+                
                 DispatchQueue.main.async {
                     self?.items = resultItems.items
                     self?.tableView.reloadData()
+                    self?.activityIndicator.stopAnimating()
                 }
+                // save to file
             case .failure(let error):
                 DispatchQueue.main.async {
                     self?.activityIndicator.stopAnimating()

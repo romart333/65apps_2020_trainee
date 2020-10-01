@@ -13,6 +13,8 @@
 		1442A8122510A46B008A4761 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1442A8112510A46B008A4761 /* Assets.xcassets */; };
 		1442A8152510A46B008A4761 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1442A8132510A46B008A4761 /* LaunchScreen.storyboard */; };
 		145C5FF7251216E200BE4360 /* ItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145C5FF6251216E200BE4360 /* ItemModel.swift */; };
+		14A50CCB2526178A000359B2 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A50CCA2526178A000359B2 /* File.swift */; };
+		14A50CCD25261A7E000359B2 /* JSONDecoderExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A50CCC25261A7E000359B2 /* JSONDecoderExtension.swift */; };
 		9749CCE725162713000877EB /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9749CCE625162713000877EB /* TableViewCell.swift */; };
 		9749CCEA2517F44C000877EB /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9749CCE92517F44B000877EB /* APIService.swift */; };
 		9749CCEF2517F5C7000877EB /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9749CCEE2517F5C7000877EB /* ErrorMessage.swift */; };
@@ -32,6 +34,8 @@
 		1442A8142510A46B008A4761 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1442A8162510A46B008A4761 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		145C5FF6251216E200BE4360 /* ItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemModel.swift; sourceTree = "<group>"; };
+		14A50CCA2526178A000359B2 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		14A50CCC25261A7E000359B2 /* JSONDecoderExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoderExtension.swift; sourceTree = "<group>"; };
 		9749CCE625162713000877EB /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		9749CCE92517F44B000877EB /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		9749CCEE2517F5C7000877EB /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
@@ -143,6 +147,8 @@
 			isa = PBXGroup;
 			children = (
 				9749CCEE2517F5C7000877EB /* ErrorMessage.swift */,
+				14A50CCA2526178A000359B2 /* File.swift */,
+				14A50CCC25261A7E000359B2 /* JSONDecoderExtension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -219,7 +225,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9749CCF72520CEEF000877EB /* ContentViewController.swift in Sources */,
+				14A50CCB2526178A000359B2 /* File.swift in Sources */,
 				145C5FF7251216E200BE4360 /* ItemModel.swift in Sources */,
+				14A50CCD25261A7E000359B2 /* JSONDecoderExtension.swift in Sources */,
 				9749CCFB2520E083000877EB /* SlideTableViewCell.swift in Sources */,
 				9749CCF525207DD8000877EB /* SlideBarController.swift in Sources */,
 				9749CCEA2517F44C000877EB /* APIService.swift in Sources */,

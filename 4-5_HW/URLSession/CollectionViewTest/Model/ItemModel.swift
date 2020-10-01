@@ -9,17 +9,18 @@
 import Foundation
 import UIKit
 
-struct Items: Decodable {
+struct Items: Codable {
     let items: [QuestionItem]
+    var url: URL?
 }
 
-struct QuestionItem: Decodable {
+struct QuestionItem: Codable {
     var title: String
     var lastEditDate: Int?
     var answerCount: Int
     var owner: Owner
 }
 
-struct Owner: Decodable {
+struct Owner: Codable {
     var displayName: String?
 }
