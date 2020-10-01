@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CustomCollectionViewCell" id="gTV-IL-0wX" customClass="CustomCollectionViewCell" customModule="CollectionViewTest" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="344" height="71"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="344" height="71"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g1z-ZG-ayl" userLabel="Content view">
+                        <rect key="frame" x="0.0" y="0.0" width="344" height="71"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="35S-cx-7Jq">
+                                <rect key="frame" x="0.0" y="0.0" width="344" height="71"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="35S-cx-7Jq" firstAttribute="leading" secondItem="g1z-ZG-ayl" secondAttribute="leading" id="7lR-CM-hgh"/>
+                            <constraint firstAttribute="trailing" secondItem="35S-cx-7Jq" secondAttribute="trailing" id="Ctq-bu-Tc5"/>
+                            <constraint firstAttribute="bottom" secondItem="35S-cx-7Jq" secondAttribute="bottom" id="PZ5-oT-kKZ"/>
+                            <constraint firstItem="35S-cx-7Jq" firstAttribute="top" secondItem="g1z-ZG-ayl" secondAttribute="top" id="lH5-oa-KPE"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="g1z-ZG-ayl" secondAttribute="trailing" id="UiM-6t-sJQ"/>
+                <constraint firstAttribute="bottom" secondItem="g1z-ZG-ayl" secondAttribute="bottom" id="bOx-Zz-gpg"/>
+                <constraint firstItem="g1z-ZG-ayl" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="fd4-Yc-jZ3"/>
+                <constraint firstItem="g1z-ZG-ayl" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="lLa-g5-O2M"/>
+            </constraints>
+            <size key="customSize" width="344" height="71"/>
+            <connections>
+                <outlet property="label" destination="35S-cx-7Jq" id="A1a-xK-Ekf"/>
+            </connections>
+            <point key="canvasLocation" x="343.47826086956525" y="143.63839285714286"/>
+        </collectionViewCell>
+    </objects>
+</document>
