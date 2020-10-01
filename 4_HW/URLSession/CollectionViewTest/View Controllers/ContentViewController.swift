@@ -8,18 +8,11 @@
 
 import UIKit
 
-class ContentViewController: UIViewController {
+class ContentViewController: UIViewController, SlideBarControllerDelegate {
     
-    var tag = String()
-    let pageSize = 50
-    
-    var urlRequest: URLRequest? {
-        let urlString = "https://api.stackexchange.com/2.2/questions?order=desc&sort=activity&tagged=\(tag))&site=stackoverflow&pagesize=\(pageSize)"
-        guard let url = URL(string: urlString) else { return nil }
-        return URLRequest(url: url)
-    }
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    weak var slideBarController: SlideBarController?
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
     private let showTagsText = "Show tags"
     private let hideTagsText = "Hide tags"
@@ -32,16 +25,21 @@ class ContentViewController: UIViewController {
     @IBOutlet private weak var pickerView: UIPickerView!
     
     private var items = [QuestionItem]()
+    private var tag = String()
+    private let pageSize = 50
+    
+    private var urlRequest: URLRequest? {
+        let urlString = "https://api.stackexchange.com/2.2/questions?order=desc&sort=activity&tagged=\(tag)&site=stackoverflow&pagesize=\(pageSize)"
+        guard let url = URL(string: urlString) else { return nil }
+        return URLRequest(url: url)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         pickerView.delegate = self
         pickerView.dataSource = self
 
-        if let defaultTag = TagsStorage.shared.getDefaultTag() {
-            self.title = defaultTag
-            tag = defaultTag
-        }
+        
         let barButtonItem = UIBarButtonItem(title: showTagsText, style: .plain, target: self, action: #selector(togglePickerViewVisibilityFlag))
         self.navigationItem.leftBarButtonItem = barButtonItem
         isPickerViewShown = false
@@ -49,7 +47,9 @@ class ContentViewController: UIViewController {
         activityIndicator.hidesWhenStopped = true
         self.view.bringSubviewToFront(activityIndicator)
         
-        fetchQuestions()
+        if let defaultTag = TagsStorage.shared.getDefaultTag() {
+            fetchQuestions(withTag: defaultTag)
+        }
     }
     
     @objc func togglePickerViewVisibilityFlag() {
@@ -67,9 +67,16 @@ class ContentViewController: UIViewController {
         }
     }
     
-    func fetchQuestions() {
+    
+    func fetchQuestions(withTag tag: String) {
         activityIndicator.startAnimating()
-        guard let urlRequest = urlRequest else { return }
+        self.tag = tag
+        self.title = tag
+        guard let urlRequest = urlRequest else {
+            activityIndicator.stopAnimating()
+            return
+        }
+        
         APIService.shared.getData(request: urlRequest) { [weak self] result in
             switch result {
             case .success(let data):
@@ -138,8 +145,8 @@ extension ContentViewController: UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.title = TagsStorage.shared.getTagWithIndex(index: row)
-        fetchQuestions()
+        guard let tag = TagsStorage.shared.getTagWithIndex(index: row) else { return }
+        fetchQuestions(withTag: tag)
     }
 }
 

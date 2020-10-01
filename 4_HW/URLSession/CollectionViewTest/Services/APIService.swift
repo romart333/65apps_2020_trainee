@@ -41,7 +41,7 @@ class APIService: NSObject, URLSessionDataDelegate {
      }
 
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: (URLSession.ResponseDisposition) -> Void) {
-
+        
         guard let response = response as? HTTPURLResponse, okStatusCodes.contains(response.statusCode) else {
             completionHandler(.cancel)
             return

@@ -8,8 +8,13 @@
 
 import UIKit
 
+protocol SlideBarControllerDelegate {
+    func fetchQuestions(withTag tag: String)
+}
+
 class SlideBarController: UIViewController {
 
+    var delegate: SlideBarControllerDelegate?
     private var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -20,6 +25,10 @@ class SlideBarController: UIViewController {
         configureTableView()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     func configureTableView() {
         tableView = UITableView()
         tableView.delegate = self
@@ -27,9 +36,11 @@ class SlideBarController: UIViewController {
         view.addSubview(tableView)
         tableView.frame = view.frame
         
-        tableView.separatorStyle = .none
-//        tableView.rowHeight = 90
         tableView.backgroundColor = .darkGray
+    }
+    
+    func setTableViewFrame(frame: CGRect) {
+        tableView.frame = frame
     }
 }
 
@@ -46,6 +57,9 @@ extension SlideBarController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let tag = TagsStorage.shared.getTagWithIndex(index: indexPath.row) {
+            delegate?.fetchQuestions(withTag: tag)
+        }
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
