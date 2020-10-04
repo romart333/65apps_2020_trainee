@@ -79,28 +79,17 @@ class ContentViewController: UIViewController, SlideBarControllerDelegate {
             return
         }
         
-        //после чтения UserDefaults проверить, стоит ли идти в сеть. Если нет - читаем с файла, иначе перезаписываем после сети
-        if let dateForUrl = UserDefaults.standard.value(forKey: networkUrl) as? Date {
-            let diffComponents = Calendar.current.dateComponents([.hour], from: dateForUrl, to: Date())
-            if let hours = diffComponents.hour  {
-                if hours < cacheLifeTimeInHours {
-                    let fileUrl = FileHelper.getDocumentsDirectory().appendingPathComponent(networkUrl)
-                    //                        let data = try Data(contentsOf: fileUrl)
-                    //                        UserDefaults.standard.setValue(Date(), forKey: url)
-                    //                        items = resultItems.items
-                    //                        tableView.reloadData()
-                    //                        activityIndicator.stopAnimating()
-                    if let data = try? Data(contentsOf: fileUrl) {
-                        let decodedItems: Items? = JSONDecoderExtension().decode(data: data)
-                        if let resultItems = decodedItems {
-                            items = resultItems.items
-                            tableView.reloadData()
-                            activityIndicator.stopAnimating()
-                            return
-                        }
-                    }
+        if let result = getCachedItemsFromFile(forAbsoluteNetworkUrl: networkUrl) {
+            switch result {
+            case .success(let itemsResult):
+                if let items = itemsResult?.items {
+                    self.items = items
+                    tableView.reloadData()
+                    activityIndicator.stopAnimating()
+                    return
                 }
-                
+            case .failure(let error):
+                print(error)
             }
         }
         
@@ -108,27 +97,21 @@ class ContentViewController: UIViewController, SlideBarControllerDelegate {
             switch result {
             case .success(let data):
                 let decodedItems: Items? = JSONDecoderExtension().decode(data: data)
-                
-                guard let resultItems = decodedItems, let url = urlRequest.url?.absoluteString else { return }
-                let fileUrl = FileHelper.getDocumentsDirectory().appendingPathComponent(url)
-                if !FileManager.default.fileExists(atPath: url) {
-                    FileManager.default.createFile(atPath: url, contents: data, attributes: nil)
-                    UserDefaults.standard.setValue(Date(), forKey: url)
-                } else {
-                    do {
-                        try data.write(to: fileUrl, options: .atomic)
-                        UserDefaults.standard.setValue(Date(), forKey: url)
-                    } catch {
-                        print(error.localizedDescription)
-                    }
+                guard let resultItems = decodedItems else {
+                    self?.activityIndicator.stopAnimating()
+                    return
                 }
                 
                 DispatchQueue.main.async {
+                    print("Refresh table from network\n")
                     self?.items = resultItems.items
                     self?.tableView.reloadData()
                     self?.activityIndicator.stopAnimating()
                 }
-                // save to file
+                
+                if let networkUrl = urlRequest.url?.absoluteString {
+                    self?.saveDataToFile(data: data, byAbsoluteNetworkUrl: networkUrl)
+                }
             case .failure(let error):
                 DispatchQueue.main.async {
                     self?.activityIndicator.stopAnimating()
@@ -137,6 +120,58 @@ class ContentViewController: UIViewController, SlideBarControllerDelegate {
                     self?.present(ac, animated: true)
                 }
             }
+        }
+    }
+    
+    func isValiedCachedData(forAbsoluteNetworkUrl url: String) -> Bool {
+        guard let fromDate = UserDefaults.standard.value(forKey: url) as? Date else { return false }
+        let diffComponents = Calendar.current.dateComponents([.hour], from: fromDate, to: Date())
+        guard let hours = diffComponents.hour else { return false }
+        return hours < cacheLifeTimeInHours
+    }
+    
+    func saveDataToFile(data: Data,
+                        byAbsoluteNetworkUrl networkUrl: String) {
+        let fileUrl = FileHelper.getFileUrlByAbsoluteNetworkUrl(absoluteNetworkUrl: networkUrl)
+        if !FileManager.default.fileExists(atPath: fileUrl.path) {
+            print("cREATE file!")
+            FileManager.default.createFile(atPath: fileUrl.path,
+                                           contents: data,
+                                           attributes: nil)
+            UserDefaults.standard.setValue(Date(), forKey: networkUrl)
+        } else {
+            do {
+                print("write to file!")
+                try data.write(to: fileUrl, options: .atomic)
+                UserDefaults.standard.setValue(Date(), forKey: networkUrl)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func getCachedItemsFromFile(forAbsoluteNetworkUrl networkUrl: String) -> (Result<Items?, Error>)? {
+        if isValiedCachedData(forAbsoluteNetworkUrl: networkUrl) {
+            let fileUrl = FileHelper.getFileUrlByAbsoluteNetworkUrl(absoluteNetworkUrl: networkUrl)
+            let dataResult = getDataFromFile(byFileUrl: fileUrl)
+            
+            switch dataResult {
+            case .success(let data):
+                return .success(JSONDecoderExtension().decode(data: data))
+            case .failure(let error):
+                return .failure(error)
+            }
+        }
+        return nil
+    }
+    
+    func getDataFromFile(byFileUrl fileUrl: URL) -> Result<Data, Error> {
+        do {
+            print("Refresh table from file")
+            let data = try Data(contentsOf: fileUrl)
+            return .success(data)
+        } catch {
+            return .failure(error)
         }
     }
 }

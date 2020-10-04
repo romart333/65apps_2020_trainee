@@ -16,4 +16,9 @@ class FileHelper {
         // just send back the first one, which ought to be the only one
         return paths[0]
     }
+    
+    static func getFileUrlByAbsoluteNetworkUrl(absoluteNetworkUrl url: String) -> URL {
+        let fileName = HashHelper.getHash(sourceValue: url)
+        return FileHelper.getDocumentsDirectory().appendingPathComponent(fileName)
+    }
 }
