@@ -15,28 +15,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         
-        let mainStoryvoard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = mainStoryvoard.instantiateViewController(identifier: "VC") as! ViewController
-        if let url = URLContexts.first?.url.absoluteString {
+//        let mainStoryvoard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = window?.rootViewController as? ViewController
+        if let url = URLContexts.first?.url.absoluteString, let vc = vc {
             
             guard let queryItem = URLComponents(string: url)?.queryItems?.first else { return }
             switch queryItem.name {
             case "text":
                 guard let text = queryItem.value else { break }
-                vc.setAppLaunchMode(mode: .showText(text: text))
+                vc.setAppLaunchMode(appLaunchMode: .showText(text: text))
             case "url":
                 guard let stringURL = queryItem.value, let url = URL(string: stringURL) else { break }
-                vc.setAppLaunchMode(mode: .openURL(url: url))
+                vc.setAppLaunchMode(appLaunchMode: .openURL(url: url))
             case "image":
-                vc.setAppLaunchMode(mode: .showImage)
+                vc.setAppLaunchMode(appLaunchMode: .showImage)
             default:
                 print("There is no one appropriate query item name")
                 break
             }
-            
         }
-        window?.rootViewController = vc
-      
     }
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {

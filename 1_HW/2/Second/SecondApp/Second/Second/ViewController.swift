@@ -10,16 +10,20 @@ import UIKit
 import WebKit
 
 class ViewController: UIViewController {
-
-    private var appLaunchMode: ApplicationLaunchMode?
     
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var wkWebView: WKWebView!
     @IBOutlet private weak var textLabel: UILabel!
+    private var isImageViewHidden = true
+    private var isWkWebViewHidden = true
+    private var isTextLabelHidden = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        restoreState()
+    }
+    
+    func setAppLaunchMode(appLaunchMode: ApplicationLaunchMode) {
         switch appLaunchMode {
         case .showText(let text):
             showTextLabel(withText: text)
@@ -28,14 +32,7 @@ class ViewController: UIViewController {
             self.view = wkWebView
         case .showImage:
             showImageView()
-        default:
-            showTextLabel(withText: "Init from this app")
         }
-        // Do any additional setup after loading the view.
-    }
-    
-    func setAppLaunchMode(mode: ApplicationLaunchMode) {
-        self.appLaunchMode = mode
     }
     
     func showTextLabel(withText text: String) {
@@ -43,6 +40,7 @@ class ViewController: UIViewController {
         wkWebView.isHidden = true
         textLabel.isHidden = false
         self.textLabel.text = text
+        saveState()
     }
     
     func showWebView(withURL url: URL) {
@@ -51,12 +49,26 @@ class ViewController: UIViewController {
         textLabel.isHidden = true
         let request = URLRequest(url: url)
         wkWebView.load(request)
+        saveState()
     }
     
     func showImageView() {
         imageView.isHidden = false
         wkWebView.isHidden = true
         textLabel.isHidden = true
+        saveState()
+    }
+    
+    func saveState() {
+        isImageViewHidden = imageView.isHidden
+        isWkWebViewHidden = wkWebView.isHidden
+        isTextLabelHidden = textLabel.isHidden
+    }
+    
+    func restoreState() {
+        imageView.isHidden = isImageViewHidden
+        wkWebView.isHidden = isWkWebViewHidden
+        textLabel.isHidden = isTextLabelHidden
     }
 }
 

@@ -10,13 +10,16 @@ import Foundation
 
 extension String {
     
-    func localizedString(comment: String) ->String {
-
-    let locallizationCode = LocalizationManager.shared.getCurrentLocalization().rawValue
-    
-    let path = Bundle.main.path(forResource: locallizationCode, ofType: "lproj")
-    let bundle = Bundle(path: path!)
-
-    return NSLocalizedString(self, tableName: nil, bundle: bundle!, value: "", comment: "")
+    func localizedString(comment: String) -> String {
+        
+        let locallizationCode = LocalizationManager.shared.getCurrentLocalization().rawValue
+        
+        if let path = Bundle.main.path(forResource: locallizationCode, ofType: "lproj"),
+            let bundle = Bundle(path: path) {
+            return NSLocalizedString(self, tableName: nil,
+                                     bundle: bundle, value: "", comment: "")
+        }
+        
+        return NSLocalizedString(self, tableName: nil, bundle: Bundle.main, value: "", comment: "")
     }
 }

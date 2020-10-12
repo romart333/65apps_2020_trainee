@@ -53,24 +53,25 @@ extension LanguageTableViewContoller: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
-        let rowIndexPath = indexPath.row
+        let rowIndex = indexPath.row
         let localizations = LocalizationManager.shared.getAllLocalizations()
         let localizationCode = LocalizationManager.shared.getCurrentLocalization()
         
-        if ((0...localizations.count - 1).contains(rowIndexPath)) {
-            if localizationCode.rawValue == localizations[rowIndexPath].rawValue {
+        if ((0...localizations.count - 1).contains(rowIndex)) {
+            if localizationCode.rawValue == localizations[rowIndex].rawValue {
                 cell.accessoryType = .checkmark
             } else {
                 cell.accessoryType = .none
             }
+            
+            switch localizations[rowIndex] {
+            case .english:
+                cell.textLabel?.text = "English".localizedString(comment: "English language")
+            case .russian:
+                cell.textLabel?.text = "Russian".localizedString(comment: "Russian language")
+            }
         }
         
-        switch localizations[rowIndexPath] {
-        case .English:
-            cell.textLabel?.text = "English".localizedString(comment: "English language")
-        case .Russian:
-            cell.textLabel?.text = "Russian".localizedString(comment: "Russian language")
-        }
         return cell
     }
     

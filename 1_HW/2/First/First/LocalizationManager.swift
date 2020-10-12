@@ -10,12 +10,9 @@ import Foundation
 
 class LocalizationManager {
     
-    private var currentLanguage = Language.English
+    private var currentLanguage = Language.english
     
-    static var shared: LocalizationManager = {
-        let instance = LocalizationManager()
-        return instance
-    }()
+    static let shared = LocalizationManager()
     
     func setCurrentLocalization(language: Language) {
         self.currentLanguage = language
