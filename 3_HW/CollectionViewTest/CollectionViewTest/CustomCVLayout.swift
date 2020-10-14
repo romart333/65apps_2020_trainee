@@ -27,26 +27,28 @@ class CustomCVLayout: UICollectionViewFlowLayout {
 //        print("layoutAttributesForElements")
         
         // Helpers
-        let sectionsToAdd = NSMutableIndexSet()
+        var sectionsToAdd = Set<Int>()
         var newLayoutAttributes = [UICollectionViewLayoutAttributes]()
-        for layoutAttributesSet in layoutAttributes {
-            switch layoutAttributesSet.representedElementCategory {
-            case .cell:
-                newLayoutAttributes.append(layoutAttributesSet)
-                sectionsToAdd.add(layoutAttributesSet.indexPath.section)
-            case .supplementaryView:
-                sectionsToAdd.add(layoutAttributesSet.indexPath.section)
-            default:
-                break
+                layoutAttributes.forEach { (attribute) in
+                switch attribute.representedElementCategory {
+                case .cell:
+                    newLayoutAttributes.append(attribute)
+                    sectionsToAdd.insert(attribute.indexPath.section)
+                case .supplementaryView:
+                    sectionsToAdd.insert(attribute.indexPath.section)
+                default:
+                    break
+                }
             }
-         }
         
-        for section in sectionsToAdd {
-            let indexPath = IndexPath(item: 0, section: section)
-            if let sectionAttributes = self.layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, at: indexPath) {
-                newLayoutAttributes.append(sectionAttributes)
+            sectionsToAdd.forEach { (section) in
+                let indexPath = IndexPath(item: 0, section: section)
+                if let sectionAttributes = self.layoutAttributesForSupplementaryView(
+                    ofKind: UICollectionView.elementKindSectionHeader,
+                    at: indexPath) {
+                    newLayoutAttributes.append(sectionAttributes)
+                }
             }
-        }
         
         return newLayoutAttributes
     }
