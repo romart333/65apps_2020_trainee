@@ -116,8 +116,10 @@ extension ContentViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.cellIdentifier, for: indexPath) as? TableViewCell else { return UITableViewCell() }
-        let item = items[indexPath.row]
-        cell.configureCellWith(item: item)
+        if (0..<items.count).contains(indexPath.row) {
+            let item = items[indexPath.row]
+            cell.configureCellWith(item: item)
+        }
         return cell
     }
 }

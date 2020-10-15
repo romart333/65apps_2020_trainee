@@ -17,9 +17,7 @@ class APIService: NSObject, URLSessionDataDelegate {
                           delegate: self, delegateQueue: nil)
     }()
 
-    private override init() {
-        super.init()
-    }
+    private override init() {}
     static let shared = APIService()
 
     private let okStatusCodes = (200...299)

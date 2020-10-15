@@ -112,6 +112,7 @@ class ContainerViewController: UIViewController {
     }
     
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        super.motionEnded(motion, with: event)
         if event?.subtype == UIEvent.EventSubtype.motionShake {
             print("Shake origin x:\(slideBarController.view.frame.origin.x)")
             let toShowSlideBar = slideBarController.view.frame.origin.x == -slideBarWidth
