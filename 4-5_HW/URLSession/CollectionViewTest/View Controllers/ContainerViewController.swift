@@ -29,8 +29,6 @@ class ContainerViewController: UIViewController {
     func configureContentViewController() {
         if let viewController = UIStoryboard(name: "Main", bundle: nil)
             .instantiateInitialViewController() as? ContentViewController {
-            //        viewController.delegate = self
-            
             contentViewController = viewController
             let navController = UINavigationController(rootViewController: viewController)
             addChild(navController)
@@ -68,7 +66,6 @@ class ContainerViewController: UIViewController {
         switch gesture.state {
         case .began:
             prevXPanPosition = gesture.translation(in: self.view).x
-            print("Start!!!:\(prevXPanPosition)")
         case .changed:
             let currentXPanPosition = gesture.translation(in: self.view).x
             let offset = currentXPanPosition - prevXPanPosition
@@ -80,14 +77,12 @@ class ContainerViewController: UIViewController {
                     dx: offset,
                     dy: 0)
             }
-//            print(offset)
-//            print(slideBarController.view.frame)
         default:
             if slideBarController.view.frame.maxX >= slideBarWidth / 2 {
                 changeSlideBarVisibility(toShow: true)
-            } else {
-                changeSlideBarVisibility(toShow: false)
+                return
             }
+            changeSlideBarVisibility(toShow: false)
         }
     }
     
@@ -96,7 +91,6 @@ class ContainerViewController: UIViewController {
         if !toShow {
             newOrigin = -slideBarWidth
         }
-        print("New origin:\(newOrigin)")
         UIView.animate(withDuration: 0.5,
                        delay: 0,
                        usingSpringWithDamping: 0.8,
@@ -112,8 +106,8 @@ class ContainerViewController: UIViewController {
     }
     
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        super.motionEnded(motion, with: event)
         if event?.subtype == UIEvent.EventSubtype.motionShake {
-            print("Shake origin x:\(slideBarController.view.frame.origin.x)")
             let toShowSlideBar = slideBarController.view.frame.origin.x == -slideBarWidth
             changeSlideBarVisibility(toShow: toShowSlideBar)
         }

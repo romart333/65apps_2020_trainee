@@ -17,8 +17,59 @@ class FileHelper {
         return paths[0]
     }
     
-    static func getFileUrlByAbsoluteNetworkUrl(absoluteNetworkUrl url: String) -> URL {
-        let fileName = HashHelper.getHash(sourceValue: url)
+    /// Генерирует URL файла в documents directory. Именем файла является хэш от входного параметра byNetworkStringUrl
+    static func getFileUrl(byNetworkStringUrl stringUrl: String) -> URL {
+        let fileName = HashHelper.getHash(sourceValue: stringUrl)
         return FileHelper.getDocumentsDirectory().appendingPathComponent(fileName)
+    }
+    
+    static func saveDataToFile(data: Data,
+                        byUrl url: URL) {
+        let absoluteStringUrl = url.absoluteString
+        let fileUrl = FileHelper.getFileUrl(byNetworkStringUrl: absoluteStringUrl)
+        if !FileManager.default.fileExists(atPath: fileUrl.path) {
+            print("cREATE file!")
+            FileManager.default.createFile(atPath: fileUrl.path,
+                                           contents: data,
+                                           attributes: nil)
+            UserDefaults.standard.setValue(Date(), forKey: absoluteStringUrl)
+        } else {
+            do {
+                print("write to file!")
+                try data.write(to: fileUrl, options: .atomic)
+                UserDefaults.standard.setValue(Date(), forKey: absoluteStringUrl)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    /// Возвращает данные из файла,  если кеш еще валидный
+    static func getValidItemsFromFile(forNetworkUrl url: URL) -> (Result<Response?, Error>)? {
+        let stringUrl = url.absoluteString
+        guard let date = UserDefaults.standard.value(forKey: stringUrl) as? Date else { return nil }
+        if !Cache.isValidCache(cacheDate: date) {
+            return nil
+        }
+        
+        let fileUrl = FileHelper.getFileUrl(byNetworkStringUrl: stringUrl)
+        let dataResult = getDataFromFile(byFileUrl: fileUrl)
+        
+        switch dataResult {
+        case .success(let data):
+            return .success(JSONDecoderExtension.decode(data: data))
+        case .failure(let error):
+            return .failure(error)
+        }
+    }
+    
+    static func getDataFromFile(byFileUrl fileUrl: URL) -> Result<Data, Error> {
+        do {
+            print("Refresh table from file")
+            let data = try Data(contentsOf: fileUrl)
+            return .success(data)
+        } catch {
+            return .failure(error)
+        }
     }
 }

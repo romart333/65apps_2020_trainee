@@ -9,9 +9,14 @@
 import Foundation
 
 class JSONDecoderExtension {
-    func decode<T: Decodable>(data: Data, withDecodingStrategy decodingStrategy: JSONDecoder.KeyDecodingStrategy = .convertFromSnakeCase) -> T? {
+    static func decode<T: Decodable>(data: Data, withDecodingStrategy decodingStrategy: JSONDecoder.KeyDecodingStrategy = .convertFromSnakeCase) -> T? {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = decodingStrategy
-        return try? decoder.decode(T.self, from: data)
+        do {
+            return try decoder.decode(T.self, from: data)
+        } catch {
+            print(error)
+        }
+        return nil
     }
 }
