@@ -56,45 +56,4 @@ class APIService: NSObject, URLSessionDataDelegate {
         let task = self.session.dataTask(with: request)
         task.resume()
     }
-    
-//    func getData(tag: String, completed: @escaping (Result<[QuestionItem], ErrorMessage>) -> Void) {
-//        let urlString = "https://api.stackexchange.com/2.2/questions?order=desc&sort=activity&tagged=\(tag))&site=stackoverflow&pagesize=\(pageSize)"
-//        guard let url = URL(string: urlString) else {return}
-//        let task = self.session.dataTask(with: url) { [weak self] (data, response, error) in
-//            guard let strongSelf = self else { return }
-//            if let _ = error {
-//                print(error)
-//                completed(.failure(.invalidData))
-//                return
-//            }
-//
-//            guard let response = response as? HTTPURLResponse, strongSelf.okStatusCodes.contains(response.statusCode) else {
-//                completed(.failure(.invalidResponse))
-//                return
-//            }
-//
-//            guard let data = data else {
-//                completed(.failure(.invalidData))
-//                return
-//            }
-//
-//            do {
-//                let deconder = JSONDecoder()
-//                deconder.keyDecodingStrategy = .convertFromSnakeCase
-//
-//                let json = try? deconder.decode(Items.self, from: data)
-//                guard let results = json else {
-//                    throw ErrorMessage.invalidData
-//                }
-//                DispatchQueue.main.async {
-//                    completed(.success(results.items))
-//                }
-//            } catch {
-//                print(error)
-//                completed(.failure(.invalidData))
-//            }
-//        }
-//
-//        task.resume()
-//    }
 }

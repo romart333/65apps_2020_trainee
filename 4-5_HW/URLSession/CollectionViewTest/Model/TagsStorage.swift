@@ -13,7 +13,7 @@ class TagsStorage {
     private let tags = ["objective-c", "swift", "ios", "xcode", "cocoa-touch", "iphone"]
     
     private init() {}
-    
+  
     static var shared: TagsStorage = TagsStorage()
     
     func getTagWithIndex(index: Int) -> String? {

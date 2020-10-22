@@ -19,9 +19,6 @@ class SlideBarController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
-        view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         configureTableView()
     }
     
@@ -35,7 +32,6 @@ class SlideBarController: UIViewController {
         tableView.dataSource = self
         view.addSubview(tableView)
         tableView.frame = view.frame
-        
         tableView.backgroundColor = .darkGray
     }
     

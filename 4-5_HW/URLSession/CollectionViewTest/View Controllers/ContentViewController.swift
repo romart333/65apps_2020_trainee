@@ -11,6 +11,7 @@ import UIKit
 class ContentViewController: UIViewController, SlideBarControllerDelegate {
     
     weak var slideBarController: SlideBarController?
+    
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
@@ -29,27 +30,47 @@ class ContentViewController: UIViewController, SlideBarControllerDelegate {
     private let pageSize = 50
     
     private var urlRequest: URLRequest? {
-        let urlString = "https://api.stackexchange.com/2.2/questions?order=desc&sort=activity&tagged=\(tag)&site=stackoverflow&pagesize=\(pageSize)"
+        let urlString = "https://api.stackexchange.com/2.2/questions?order=desc&sort=activity&tagged=\(tag)&site=stackoverflow&pagesize=\(pageSize)&filter=!9_bDDxJY5"
         guard let url = URL(string: urlString) else { return nil }
         return URLRequest(url: url)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        pickerView.delegate = self
-        pickerView.dataSource = self
-
-        
-        let barButtonItem = UIBarButtonItem(title: showTagsText, style: .plain, target: self, action: #selector(togglePickerViewVisibilityFlag))
-        self.navigationItem.leftBarButtonItem = barButtonItem
-        isPickerViewShown = false
-        
-        activityIndicator.hidesWhenStopped = true
-        self.view.bringSubviewToFront(activityIndicator)
+        setupPickerView()
+        setupNavigationItems()
+        setupActivityIndicator()
         
         if let defaultTag = TagsStorage.shared.getDefaultTag() {
             fetchQuestions(withTag: defaultTag)
         }
+    }
+    
+    func setupNavigationItems() {
+        let backBarButtonItem =  UIBarButtonItem(
+            title: "Back",
+            style: .plain,
+            target: nil,
+            action: nil)
+        self.navigationItem.backBarButtonItem = backBarButtonItem
+        
+        let leftBarButtonItem = UIBarButtonItem(
+            title: showTagsText,
+            style: .plain,
+            target: self,
+            action: #selector(togglePickerViewVisibilityFlag))
+        self.navigationItem.leftBarButtonItem = leftBarButtonItem
+    }
+    
+    func setupPickerView() {
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        isPickerViewShown = false
+    }
+    
+    func setupActivityIndicator() {
+        activityIndicator.hidesWhenStopped = true
+        self.view.bringSubviewToFront(activityIndicator)
     }
     
     @objc func togglePickerViewVisibilityFlag() {
@@ -67,40 +88,73 @@ class ContentViewController: UIViewController, SlideBarControllerDelegate {
         }
     }
     
-    
     func fetchQuestions(withTag tag: String) {
         activityIndicator.startAnimating()
         self.tag = tag
         self.title = tag
-        guard let urlRequest = urlRequest else {
+        
+        guard let urlRequest = urlRequest,
+            let url = urlRequest.url else {
             activityIndicator.stopAnimating()
             return
         }
         
+        // ЗАГРУЗКА ДАННЫХ ИЗ CORE DATA
+        if let response = PersistanceService
+            .shared
+            .getValidResponse(byNetworkUrl: url), let questionItems = response.questionItems {
+            realoadTableView(withItems: Array(questionItems))
+            return
+        }
+        
+        // ЗАГРУЗКА ДАННЫХ ИЗ ФАЙЛА
+//        if let result = FileHelper.getValidItemsFromFile(forNetworkUrl: url) {
+//            switch result {
+//            case .success(let response):
+//                if let questionItems = response?.questionItems {
+//                    realoadTableView(withItems: Array(questionItems))
+//                    return
+//                }
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
+        
         APIService.shared.getData(request: urlRequest) { [weak self] result in
             switch result {
             case .success(let data):
-                let deconder = JSONDecoder()
-                deconder.keyDecodingStrategy = .convertFromSnakeCase
-
-                let decodedItems = try? deconder.decode(Items.self, from: data)
+                let decodedResponse: Response? = JSONDecoderExtension.decode(data: data)
+                guard let response = decodedResponse, let questionItems = response.questionItems else { return }
+                
                 DispatchQueue.main.async {
-                    self?.activityIndicator.stopAnimating()
+                    print("Refresh table from network\n")
+                    self?.realoadTableView(withItems: Array(questionItems))
                 }
-                guard let resultItems = decodedItems else { return }
-                DispatchQueue.main.async {
-                    self?.items = resultItems.items
-                    self?.tableView.reloadData()
-                }
+                
+                guard let url = urlRequest.url else { return }
+                // СОХРАНЕНИЕ В CORE DATA
+                PersistanceService.shared.saveResponse(
+                    response: response,
+                    withNetworkUrl: url)
+                
+                // СОХРАННИЕ В ФАЙЛ
+//                FileHelper.saveDataToFile(data: data, byUrl: url)
             case .failure(let error):
                 DispatchQueue.main.async {
                     self?.activityIndicator.stopAnimating()
-                    let ac = UIAlertController(title: error.rawValue, message: nil, preferredStyle: .alert)
-                    ac.addAction(UIAlertAction(title: "OK", style: .default))
-                    self?.present(ac, animated: true)
+                    guard let strongSelf = self else { return }
+                    UIAlertControllerHelper.showAlert(
+                        withTitle: error.rawValue,
+                        inViewController: strongSelf)
                 }
             }
         }
+    }
+    
+    func realoadTableView(withItems items: [QuestionItem]) {
+        self.items = items
+        tableView.reloadData()
+        activityIndicator.stopAnimating()
     }
 }
 
@@ -115,7 +169,7 @@ extension ContentViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.cellIdentifier, for: indexPath) as? TableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: QuestionTableViewCell.cellIdentifier, for: indexPath) as? QuestionTableViewCell else { return UITableViewCell() }
         if (0..<items.count).contains(indexPath.row) {
             let item = items[indexPath.row]
             cell.configureCellWith(item: item)
@@ -128,6 +182,19 @@ extension ContentViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         20
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if !(0..<items.count).contains(indexPath.row) {
+            return
+        }
+        let item = items[indexPath.row]
+        guard let questionBody = item.body,
+              let answerVC = AnswerViewController.initAnswerVC(
+                withQuestion: questionBody,
+                andQuestionId: Int(item.questionId)) else { return }
+        navigationController?.pushViewController(answerVC, animated: true)
     }
 }
 
